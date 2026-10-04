@@ -1,0 +1,6 @@
+# 이 파일을 application-local.yml로 복사해 개발자 키를 넣는다. application-local.yml은 git에서 제외된다.
+# 배포 후에는 학원 키를 설정 화면에 넣는다(설정 화면 값이 이 파일보다 우선).
+app:
+  mathpix:
+    app-id: your_app_id
+    app-key: your_app_key

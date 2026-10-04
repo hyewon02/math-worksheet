@@ -1,0 +1,33 @@
+# 빌드·테스트. Windows 설치 파일(jpackage + WiX) 생성은 로드맵 6단계에서 추가한다.
+name: build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: 프론트엔드 빌드
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: 백엔드 테스트
+        working-directory: backend
+        run: ./gradlew.bat build

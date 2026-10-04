@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.7'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.mathworksheet'
+version = '0.1.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.flywaydb:flyway-core'
+    runtimeOnly 'com.h2database:h2'
+
+    // 빈칸 채우기(8장), 역변환 비교(8장)
+    implementation 'org.apache.poi:poi-ooxml:5.4.1'
+    implementation 'io.github.java-diff-utils:java-diff-utils:4.15'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// /worksheet(형식 파일·Lua 필터·샘플 원고)가 단일 원본이다. 백엔드 리소스로 복사한다(15장).
+processResources {
+    from('../worksheet') {
+        into 'worksheet'
+        exclude '**/.gitkeep'
+    }
+}
+
+springBoot {
+    buildInfo()
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

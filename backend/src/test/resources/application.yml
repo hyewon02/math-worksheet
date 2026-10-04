@@ -1,0 +1,15 @@
+app:
+  data-dir: ./build/test-data
+  mathpix:
+    app-id:
+    app-key:
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate

@@ -1,0 +1,9 @@
+# 줄바꿈 고정: Windows에서 커밋해도 리눅스(CI)에서 gradlew가 실행되도록
+* text=auto
+gradlew text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+*.jar binary
+*.docx binary
+*.png binary
+*.jpg binary

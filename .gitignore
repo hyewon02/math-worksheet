@@ -1,0 +1,28 @@
+# 개발용 쪽 사진·라벨, 에이전트 중간 산출물(15장)
+/samples/
+/output/
+
+# 개발자 키(10장)
+application-local.yml
+.env
+
+# 백엔드
+backend/build/
+backend/.gradle/
+backend/bin/
+# 프론트엔드 빌드 결과(빌드 때 생성)
+backend/src/main/resources/static/
+
+# 프론트엔드
+frontend/node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# 편집기·OS
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+~$*.docx
