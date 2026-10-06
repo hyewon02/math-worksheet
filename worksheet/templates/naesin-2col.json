@@ -1,0 +1,10 @@
+{
+  "name": "내신형 2단",
+  "space": {
+    "choice": "1cm",
+    "short": "3cm",
+    "essay": "8cm"
+  },
+  "choices5Max": 5,
+  "choices3Max": 10
+}

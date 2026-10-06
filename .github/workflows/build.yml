@@ -22,6 +22,15 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
+      # Word 생성 테스트(PandocRunner·역변환 비교)가 pandoc을 실제로 실행한다. 없으면 테스트가 건너뛰어지므로 설치를 확인한다
+      - name: Pandoc 설치
+        run: |
+          choco install pandoc -y --no-progress
+          echo "C:\Program Files\Pandoc" >> $env:GITHUB_PATH
+
+      - name: Pandoc 확인
+        run: pandoc --version
+
       - name: 프론트엔드 빌드
         working-directory: frontend
         run: |

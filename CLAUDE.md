@@ -68,7 +68,7 @@ bash .claude/skills/build-test/scripts/run_tests.sh
 3. 산출물 자기 검증(미리보기, 리포트) 후 완료 기준 충족 여부를 보고하고 사용자 확인을 받는다.
 4. 개발 일지 `docs/devlog/YYYY-MM-DD-주제.md`를 쓰고 `docs/devlog/README.md` 목록에 추가한다. 백엔드 포트폴리오·면접 참고용이므로 결정 이유, 고려한 대안, 겪은 문제(증상→원인→해결), 예상 면접 질문을 남긴다. 양식은 `docs/devlog/README.md`.
 
-현재 단계: **로드맵 0(뼈대) 완료 → 2단계 Word 생성 검증**(키 없이 가능). Mathpix 결제 후 1단계.
+현재 단계: **로드맵 2단계 Word 생성 검증 진행 중**. 생성·검증 파이프라인(Java `com.mathworksheet.worksheet`)과 내장 형식 1종(내신형 2단) 완료, 학원 시험지 샘플을 받으면 형식 2~3종으로 늘린다. Mathpix 결제 후 1단계.
 
 ## 7. 스킬·서브에이전트 호출 규칙
 

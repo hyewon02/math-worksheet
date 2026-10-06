@@ -4,6 +4,9 @@ app:
   mathpix:
     app-id:
     app-key:
+  pandoc:
+    path: pandoc
+    timeout: 60s
 
 server:
   port: 8080
