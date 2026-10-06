@@ -41,7 +41,7 @@ cd frontend && npm run dev         # http://localhost:5173 (/api는 8080으로 �
 cd frontend && npm run build       # backend static 폴더로 출력
 ```
 
-- 필요 도구: Node 22.14 이상, Pandoc(Word 생성 단계부터)
+- 필요 도구: Node 22.14 이상(개발·CI는 24), Pandoc 3.x
 - Mathpix 키: `backend/application-local.yml.example`을 `application-local.yml`로 복사하거나 환경 변수 `MATHPIX_APP_ID`, `MATHPIX_APP_KEY`
 
 ## 문서
