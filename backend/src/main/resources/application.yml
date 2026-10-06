@@ -7,6 +7,8 @@ app:
   pandoc:
     path: pandoc
     timeout: 60s
+  # 문제지 머리말의 학원명. 설정 화면이 생기면 settings.json 값이 우선한다
+  academy-name: 수학학원
 
 server:
   port: 8080

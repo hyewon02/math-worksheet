@@ -36,9 +36,15 @@ public class WorksheetRenderer {
      * @param template     형식 파일(reference.docx)
      * @param answers      true면 정답지
      * @param placeholders 학원명·시험제목·날짜·문제지번호
+     * @param settings     형식 설정. null이면 형식 파일 옆 .json(앱에서는 DB의 Template 값을 넘긴다)
      */
     public record Request(Path manuscript, Path resourceDir, Path template, boolean answers,
-                          Map<String, String> placeholders, Path output) {
+                          Map<String, String> placeholders, Path output, FormatSettings settings) {
+
+        public Request(Path manuscript, Path resourceDir, Path template, boolean answers,
+                       Map<String, String> placeholders, Path output) {
+            this(manuscript, resourceDir, template, answers, placeholders, output, null);
+        }
     }
 
     /** @param leftovers 채우지 못한 빈칸 이름. 비어 있어야 정상 */
@@ -68,7 +74,8 @@ public class WorksheetRenderer {
                 "--reference-doc=" + request.template().toAbsolutePath(),
                 "--lua-filter=" + luaFilter.toAbsolutePath(),
                 "--resource-path=" + request.resourceDir().toAbsolutePath()));
-        args.addAll(FormatSettings.forTemplate(request.template()).pandocArguments());
+        FormatSettings settings = request.settings() != null ? request.settings() : FormatSettings.forTemplate(request.template());
+        args.addAll(settings.pandocArguments());
         if (request.answers()) {
             args.addAll(List.of("-M", "answers=true"));
         }

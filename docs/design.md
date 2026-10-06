@@ -321,13 +321,13 @@ OCR 원문(OcrResult)과 검수본(Problem)을 분리해, 원문은 절대 수�
 | SourceImage | id, uploadBatchId, 파일 경로, sha256, 축소 여부, 등록일 | 등록한 사진 1장 |
 | OcrJob | id, sourceImageId, 상태, 시도 횟수, 오류 메시지 | OCR 작업 큐 |
 | OcrResult | id, sourceImageId, 엔진(현재 mathpix), 원문, 줄별 데이터(JSON), 생성일 | 읽기 전용 원문 |
-| Problem | id, groupId, originProblemId, 교재, 학년, 쪽, 원번호, 유형, 정답, 정답 상태(입력됨/나중에), 본문 마크다운, 검색용 텍스트, 검수 상태, 보류 메모, version, 삭제일, 생성일, 수정일 | 검수 중이거나 마친 문제 |
+| Problem | id, groupId, 묶음 안 순서, originProblemId, 교재, 학년, 쪽, 원번호, 유형, 정답, 정답 상태(입력됨/나중에), 본문 마크다운, 검색용 텍스트, 검수 상태, 보류 메모, version, 삭제일, 생성일, 수정일 | 검수 중이거나 마친 문제. 본문은 발문(보기 ①~⑤ 제외), `<보기>` 상자는 본문 안 `::: bogi` 구역 |
 | ProblemRegion | problemId, sourceImageId, 좌표(x, y, 너비, 높이), 순서 | 문제가 차지하는 사진 영역. 두 장에 걸치면 2개 |
 | ProblemGroup | id, 공통 지문 마크다운 | 공통 지문 묶음 |
 | Choice | problemId, 번호(1\~5), 내용 마크다운, 이미지형 여부 | 객관식 보기 |
-| Figure | id, problemId 또는 groupId, 파일 경로, 순서, 표시 너비 | 잘라낸 그림 |
+| Figure | id, problemId 또는 groupId, 표시 이름(본문의 `[그림:p0123_1]`), 파일 경로, 순서, 표시 너비 | 잘라낸 그림 |
 | Tag / ProblemTag | 이름 / problemId, tagId | 자유 태그 |
-| Template | id, 이름, reference.docx 경로, 단 수, 보기 배치 규칙, 유형별 풀이 공간(cm), 내장 여부 | 문제지 서식 |
+| Template | id, 이름, reference.docx 경로, 단 수, 단 너비(cm), 보기 배치 기준 칸 수(5개/3개), 유형별 풀이 공간(cm), 내장 여부 | 문제지 서식 |
 | Worksheet / WorksheetItem | 제목, 날짜, templateId, 생성일, 수정일, 복제 원본 문제지, 문제지 번호(예: WS-0042) / problemId, 순서, 풀이 공간(작게/보통/크게), 스냅샷(JSON), 스냅샷 당시 문제 version | 만든 문제지와 문제 순서 |
 | ApiUsage | 연월, 호출 수, 페이지 요금 추정 건수 | Mathpix 사용량 집계 |
 
@@ -664,6 +664,9 @@ curl -X POST https://api.mathpix.com/v3/text \
 | Word 생성 Java 구현 시점 (10-06) | 2단계에서 Java로 구현(Pandoc 실행·빈칸 채우기·형식 검사·역변환 비교). 스킬 스크립트는 처음부터 Java CLI를 부른다 | 백엔드 포트폴리오. 로직이 스크립트·Java 두 벌로 갈라지지 않음 |
 | 비교 정규화 추가 (10-06) | 폭 없는 공백(U+200B), cases ↔ `\left\{matrix\right.` | Pandoc 변환 특성. 본문 글자 차이가 아님을 미리보기로 확인 |
 | 보기 배치 기준 (10-06) | 9/15칸 고정 → 형식 설정. 내신형 2단은 5/10 | 2단 10pt에서 9/15는 보기가 줄을 넘김 |
+| 데이터 모델·문제지 API 앞당김 (10-06) | 로드맵 4단계 중 데이터 모델(Flyway V1, 6장 테이블 전부)과 문제은행 조회·정답 수정, 문제지 저장·갱신·복제·생성·내려받기 API를 키 없이 먼저 구현. 화면은 4단계 | Mathpix 결제 전 진행 가능한 백엔드 작업 |
+| 보기·`<보기>` 상자 저장 (10-06) | 본문=발문, 보기=Choice 행. `<보기>` 상자는 본문 안 `::: bogi` 구역 | 원고 조립이 단순하고 보기 개수 검사가 쉬움. 칸을 늘리지 않고 본문 안 위치 유지 |
+| 내려받기 두 단계 (10-06) | `POST /generate`(만들고 검사 결과 반환) → `GET /downloads/{token}/{kind}`(1시간 보관) | 불일치 때 차이를 보고 "확인했음, 내려받기"를 고를 수 있게 |
 
 ## 14. 개발 워크플로우 (Claude Code)
 

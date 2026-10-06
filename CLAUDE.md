@@ -68,7 +68,10 @@ bash .claude/skills/build-test/scripts/run_tests.sh
 3. 산출물 자기 검증(미리보기, 리포트) 후 완료 기준 충족 여부를 보고하고 사용자 확인을 받는다.
 4. 개발 일지 `docs/devlog/YYYY-MM-DD-주제.md`를 쓰고 `docs/devlog/README.md` 목록에 추가한다. 백엔드 포트폴리오·면접 참고용이므로 결정 이유, 고려한 대안, 겪은 문제(증상→원인→해결), 예상 면접 질문을 남긴다. 양식은 `docs/devlog/README.md`.
 
-현재 단계: **로드맵 2단계 Word 생성 검증 진행 중**. 생성·검증 파이프라인(Java `com.mathworksheet.worksheet`)과 내장 형식 1종(내신형 2단) 완료, 학원 시험지 샘플을 받으면 형식 2~3종으로 늘린다. Mathpix 결제 후 1단계.
+현재 단계: **로드맵 2단계 Word 생성 검증 진행 중**. 생성·검증 파이프라인(Java `com.mathworksheet.worksheet`)과 내장 형식 1종(내신형 2단) 완료, 학원 시험지 샘플을 받으면 형식 2~3종으로 늘린다. 4단계 중 데이터 모델(Flyway V1)과 문제은행·문제지 API(화면 제외)를 앞당겨 완료(설계서 13장 10-06). Mathpix 결제 후 1단계.
+
+- 샘플 데이터로 실행: `./gradlew bootRun --args='--spring.profiles.active=dev'`(문제은행이 비어 있으면 `worksheet/samples/sample-01.problems.json` 12문제를 넣는다)
+- 원고 조립 회귀: `ManuscriptGoldenTest`가 DB → 원고 결과를 `sample-01.md`와 글자 단위로 비교한다. 기대값(원고)을 고치지 말고 조립 코드를 고친다.
 
 ## 7. 스킬·서브에이전트 호출 규칙
 

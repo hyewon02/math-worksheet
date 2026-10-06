@@ -6,5 +6,7 @@
     "essay": "8cm"
   },
   "choices5Max": 5,
-  "choices3Max": 10
+  "choices3Max": 10,
+  "columns": 2,
+  "columnWidthCm": 8.2
 }

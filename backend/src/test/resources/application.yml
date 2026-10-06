@@ -6,6 +6,7 @@ app:
   pandoc:
     path: pandoc
     timeout: 60s
+  academy-name: 테스트학원
 
 spring:
   datasource:
