@@ -65,3 +65,15 @@ tasks.register('docxTool', JavaExec) {
     // 검사 불일치(종료 코드 1)를 Gradle 실패로 보이지 않게 한다. 스크립트는 마지막 줄 'exit=N'으로 결과를 읽는다
     ignoreExitValue = true
 }
+
+// 1단계 OCR·분할 검증 도구(mathpix-ocr, split-eval 스킬이 부른다). 작업 폴더가 backend라 ./application-local.yml을 읽는다
+tasks.register('ocrTool', JavaExec) {
+    group = 'ocr'
+    description = 'Mathpix 호출·문제 나누기·분할 정확도 CLI'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.mathworksheet.ocr.cli.OcrCli'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+    workingDir = rootProject.projectDir
+    jvmArgs '-Dstdout.encoding=UTF-8', '-Dstderr.encoding=UTF-8'
+    ignoreExitValue = true
+}
